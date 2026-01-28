@@ -10,6 +10,7 @@ DB_FILE = 'finance_pro.db'
 def init_db():
     conn = sqlite3.connect(DB_FILE)
     c = conn.cursor()
+    # 注意：这里定义的列名是 description
     c.execute('''CREATE TABLE IF NOT EXISTS transactions
                  (id INTEGER PRIMARY KEY, 
                   date_str TEXT, 
@@ -198,13 +199,13 @@ with tab2:
             amount_str = f"{row['amount']}"
             if row['amount'] > 0: amount_str = f"+{row['amount']}"
 
-            # 使用 Expander 做成卡片样式
-            with st.expander(f"**{row['date_str']}** | {row['category_main']} - {row['desc']}   Running: :{amount_color}[{amount_str}]"):
+            # !!! 修正处：row['desc'] -> row['description'] !!!
+            with st.expander(f"**{row['date_str']}** | {row['category_main']} - {row['description']}   :{amount_color}[{amount_str}]"):
                 st.markdown(f"""
                 - 🕒 **时间**: {row['time_str']}
                 - 📂 **分类**: {row['category_main']} > {row['category_sub']}
                 - 💰 **金额**: {amount_str} 元
-                - 📝 **原始输入**: "{row['description']}" # 数据库里存的是 description
+                - 📝 **原始输入**: "{row['description']}" 
                 """)
     else:
         st.info("暂无数据")
@@ -212,7 +213,6 @@ with tab2:
 # --- Tab 3: 收支报表 ---
 with tab3:
     st.subheader("📊 财务概览")
-    # (这里代码和之前一样复用 Tab2 的逻辑，稍微简化显示)
     df = get_data()
     if not df.empty:
         df['amount'] = pd.to_numeric(df['amount'])
