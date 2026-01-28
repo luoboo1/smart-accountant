@@ -30,6 +30,14 @@ def add_transaction(data):
     conn.commit()
     conn.close()
 
+# --- 新增: 删除功能 ---
+def delete_transaction(tx_id):
+    conn = sqlite3.connect(DB_FILE)
+    c = conn.cursor()
+    c.execute("DELETE FROM transactions WHERE id = ?", (tx_id,))
+    conn.commit()
+    conn.close()
+
 def get_data():
     conn = sqlite3.connect(DB_FILE)
     # 按时间倒序
@@ -154,7 +162,7 @@ with tab1:
             with st.chat_message(msg["role"]):
                 st.markdown(msg["content"])
 
-# --- Tab 2: 明细查询 (新增功能) ---
+# --- Tab 2: 明细查询 (更新：添加删除功能) ---
 with tab2:
     st.subheader("📋 账单明细筛选")
     df = get_data()
@@ -199,14 +207,29 @@ with tab2:
             amount_str = f"{row['amount']}"
             if row['amount'] > 0: amount_str = f"+{row['amount']}"
 
-            # !!! 修正处：row['desc'] -> row['description'] !!!
+            # 使用 expander 展示详情
             with st.expander(f"**{row['date_str']}** | {row['category_main']} - {row['description']}   :{amount_color}[{amount_str}]"):
-                st.markdown(f"""
-                - 🕒 **时间**: {row['time_str']}
-                - 📂 **分类**: {row['category_main']} > {row['category_sub']}
-                - 💰 **金额**: {amount_str} 元
-                - 📝 **原始输入**: "{row['description']}" 
-                """)
+                
+                # 使用列布局，左侧看详情，右侧放删除按钮
+                c_info, c_del = st.columns([5, 1])
+                
+                with c_info:
+                    st.markdown(f"""
+                    - 🕒 **时间**: {row['time_str']}
+                    - 📂 **分类**: {row['category_main']} > {row['category_sub']}
+                    - 💰 **金额**: {amount_str} 元
+                    - 📝 **原始输入**: "{row['description']}" 
+                    """)
+                
+                with c_del:
+                    st.write("") # 占位用于垂直居中
+                    st.write("")
+                    # 重要：为每个按钮设置唯一的 key，使用 row['id']
+                    if st.button("🗑️ 删除", key=f"btn_del_{row['id']}", type="primary"):
+                        delete_transaction(row['id'])
+                        st.success("已删除！")
+                        st.rerun() # 立即刷新页面
+
     else:
         st.info("暂无数据")
 
@@ -280,4 +303,3 @@ with tab3:
             
     else:
         st.info("暂无数据，请先去记一笔账吧！")
-
