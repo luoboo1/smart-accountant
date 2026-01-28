@@ -210,19 +210,74 @@ with tab2:
     else:
         st.info("暂无数据")
 
-# --- Tab 3: 收支报表 ---
+# --- Tab 3: 收支报表 (全新升级版) ---
 with tab3:
-    st.subheader("📊 财务概览")
+    st.subheader("📊 财务趋势分析")
+    
     df = get_data()
+    
     if not df.empty:
+        # 1. 数据预处理
         df['amount'] = pd.to_numeric(df['amount'])
-        total_balance = df['amount'].sum()
-        st.metric("总资产结余", f"¥{total_balance:.2f}")
+        # 必须确保有时间对象列
+        df['datetime_obj'] = pd.to_datetime(df['date_str'])
         
-        st.caption("支出分布")
+        # 2. 顶部概览
+        total_income = df[df['amount'] > 0]['amount'].sum()
+        total_expense = df[df['amount'] < 0]['amount'].sum()
+        balance = total_income + total_expense
+        
+        c1, c2, c3 = st.columns(3)
+        c1.metric("总收入", f"¥{total_income:,.2f}", delta="累计")
+        c2.metric("总支出", f"¥{abs(total_expense):,.2f}", delta="-累计", delta_color="inverse")
+        c3.metric("当前结余", f"¥{balance:,.2f}")
+        
+        st.divider()
+
+        # 3. 时间维度汇总控制
+        st.markdown("##### 📅 收支趋势")
+        col_ctrl1, col_ctrl2 = st.columns([1, 3])
+        with col_ctrl1:
+            time_mode = st.radio("汇总粒度", ["按日", "按月", "按年"], horizontal=True)
+
+        # 4. 数据分组逻辑
+        df_chart = df.copy()
+        if time_mode == "按日":
+            df_chart['period'] = df_chart['datetime_obj'].dt.strftime('%Y-%m-%d')
+        elif time_mode == "按月":
+            df_chart['period'] = df_chart['datetime_obj'].dt.strftime('%Y-%m')
+        elif time_mode == "按年":
+            df_chart['period'] = df_chart['datetime_obj'].dt.strftime('%Y')
+            
+        # 核心：透视表，把同一时间段的 收入 和 支出 分开算
+        # 技巧：分别计算正数和负数
+        df_chart['Income'] = df_chart['amount'].apply(lambda x: x if x > 0 else 0)
+        df_chart['Expense'] = df_chart['amount'].apply(lambda x: abs(x) if x < 0 else 0) # 支出转为正数方便画图
+        
+        # 按时间分组求和
+        pivot_df = df_chart.groupby('period')[['Income', 'Expense']].sum().sort_index()
+
+        # 5. 绘制趋势图
+        # 如果是按月或按年，我们用柱状图对比；如果是按日，用折线图看流水
+        if time_mode == "按日":
+            st.line_chart(pivot_df, color=["#FF4B4B", "#00CC96"]) # 红色收入，绿色支出
+            st.caption("注：红色为收入，绿色为支出（绝对值）")
+        else:
+            st.bar_chart(pivot_df, color=["#FF4B4B", "#00CC96"])
+            
+        st.divider()
+        
+        # 6. 分类饼图 (保持之前的逻辑)
+        st.markdown("##### 🍩 支出构成")
         exp_df = df[df['amount'] < 0].copy()
         if not exp_df.empty:
             exp_df['abs_amt'] = exp_df['amount'].abs()
-            st.bar_chart(exp_df.groupby('category_main')['abs_amt'].sum())
+            
+            # 使用更高级的 Altair 或者 Plotly 其实更好，但为了简单，这里用简单的 dataframe 展示数据
+            # Streamlit 的 bar_chart 也可以画分类
+            category_sum = exp_df.groupby('category_main')['abs_amt'].sum().sort_values(ascending=False)
+            st.bar_chart(category_sum)
+            
     else:
-        st.info("暂无数据")
+        st.info("暂无数据，请先去记一笔账吧！")
+
