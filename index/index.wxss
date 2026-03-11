@@ -1,0 +1,196 @@
+/* pages/home/index.wxss */
+
+/* 全局背景色，让白色卡片更明显 */
+page {
+  background-color: #f7f8fa;
+}
+
+.home-container {
+  padding: 30rpx;
+}
+
+/* 顶部标题栏 */
+.header-area {
+  margin-bottom: 40rpx;
+}
+
+.app-title {
+  font-size: 44rpx;
+  font-weight: bold;
+  color: #333;
+  display: block;
+}
+
+.app-subtitle {
+  font-size: 26rpx;
+  color: #888;
+  margin-top: 10rpx;
+  display: block;
+}
+
+/* 输入卡片 */
+.input-card {
+  display: flex;
+  background: #fff;
+  padding: 20rpx 24rpx;
+  border-radius: 20rpx;
+  box-shadow: 0 8rpx 24rpx rgba(0, 0, 0, 0.05);
+  margin-bottom: 30rpx;
+  align-items: center;
+}
+
+.main-input {
+  flex: 1;
+  height: 80rpx;
+  font-size: 32rpx;
+  color: #333;
+}
+
+.action-btn {
+  background: #007AFF;
+  color: #fff;
+  width: 160rpx;
+  height: 80rpx;
+  line-height: 80rpx;
+  text-align: center;
+  border-radius: 12rpx;
+  font-weight: bold;
+  font-size: 28rpx;
+  margin-left: 20rpx;
+}
+
+/* 记账成功反馈卡片 */
+.feedback-card {
+  background: #e3f2fd;
+  padding: 30rpx;
+  border-radius: 20rpx;
+  margin-bottom: 40rpx;
+  border: 1rpx solid #bbdefb;
+}
+
+.feedback-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 20rpx;
+  font-size: 26rpx;
+  font-weight: bold;
+  color: #1976d2;
+}
+
+.date-tips {
+  font-weight: normal;
+  color: #90a4ae;
+  font-size: 24rpx;
+}
+
+.feedback-body {
+  display: flex;
+  align-items: center;
+}
+
+/* 拼接标签样式：左边实心，右边浅色 */
+.tag-group {
+  display: flex;
+  margin-right: 20rpx;
+}
+
+.tag-main {
+  background: #007AFF;
+  color: #fff;
+  font-size: 22rpx;
+  padding: 4rpx 14rpx;
+  border-radius: 8rpx 0 0 8rpx; /* 左圆角 */
+}
+
+.tag-sub {
+  background: #bbdefb;
+  color: #007AFF;
+  font-size: 22rpx;
+  padding: 4rpx 14rpx;
+  border-radius: 0 8rpx 8rpx 0; /* 右圆角 */
+}
+
+.desc {
+  flex: 1;
+  font-size: 30rpx;
+  color: #333;
+}
+
+.money {
+  font-size: 36rpx;
+  font-weight: bold;
+}
+
+/* 近期预览区域 */
+.recent-title {
+  font-size: 28rpx;
+  color: #999;
+  margin-bottom: 24rpx;
+  padding-left: 10rpx;
+}
+
+.record-item {
+  display: flex;
+  align-items: center;
+  background: #fff;
+  padding: 30rpx 24rpx;
+  border-radius: 20rpx;
+  margin-bottom: 20rpx;
+  box-shadow: 0 2rpx 10rpx rgba(0, 0, 0, 0.02);
+}
+
+/* 左侧分类盒 */
+.cat-box {
+  width: 120rpx;
+  display: flex;
+  flex-direction: column;
+  border-right: 1rpx solid #f0f0f0;
+  margin-right: 24rpx;
+}
+
+.item-cat {
+  font-size: 28rpx;
+  font-weight: bold;
+  color: #333;
+}
+
+.item-sub {
+  font-size: 20rpx;
+  color: #999;
+  margin-top: 4rpx;
+}
+
+/* 中间备注盒 */
+.content-box {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+}
+
+.item-desc {
+  font-size: 28rpx;
+  color: #444;
+  margin-bottom: 6rpx;
+}
+
+.item-date {
+  font-size: 20rpx;
+  color: #ccc;
+}
+
+/* 右侧金额 */
+.item-money {
+  font-weight: bold;
+  font-size: 32rpx;
+  text-align: right;
+}
+
+/* 颜色逻辑：收入红(升)，支出绿(降) —— 遵循你要求的中国股市配色逻辑 */
+.income {
+  color: #eb4d3d; /* 红色 */
+}
+
+.expense {
+  color: #2ecc71; /* 绿色 */
+}

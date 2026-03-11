@@ -1,0 +1,192 @@
+/* pages/bill/index.wxss */
+page {
+  background-color: #F8F9FA;
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+  overflow: hidden; /* 防止页面整体左右晃动 */
+}
+
+/* === 1. 固定顶部区域 === */
+.fixed-top-area {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  z-index: 100;
+  background-color: #fff;
+  box-shadow: 0 4rpx 12rpx rgba(0,0,0,0.08);
+}
+
+.filter-header {
+  padding: 20rpx 15rpx; /* 减少左右内边距以容纳三个按钮 */
+  display: flex;
+  justify-content: space-around; /* 均匀分布三个筛选器 */
+  align-items: center;
+  border-bottom: 1rpx solid #f5f5f5;
+}
+
+.filter-btn {
+  background-color: #F0F2F5;
+  padding: 10rpx 16rpx;
+  border-radius: 30rpx;
+  display: flex;
+  align-items: center;
+  font-size: 24rpx; /* 稍微调小字号 */
+  color: #333;
+  max-width: 220rpx; /* 防止分类名称过长挤爆一行 */
+}
+
+/* 分类按钮内部文字截断处理 */
+.limit-text {
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  max-width: 160rpx;
+}
+
+.arrow { 
+  color: #bbb; 
+  margin-left: 6rpx; 
+  font-size: 16rpx; 
+}
+
+/* 统计条 */
+.stats-bar {
+  padding: 24rpx 40rpx;
+  display: flex;
+  justify-content: space-between;
+  background-color: #fafafa;
+}
+.stat-item { display: flex; flex-direction: column; align-items: center; }
+.label { font-size: 20rpx; color: #999; margin-bottom: 6rpx; }
+.val { font-size: 28rpx; font-weight: bold; color: #333; }
+
+/* 颜色逻辑：收入红，支出绿 */
+.income { color: #f53b3b; } 
+.expense { color: #2ecc71; }
+
+/* === 2. 账单列表区域 === */
+.bill-list {
+  height: 100vh;
+  box-sizing: border-box;
+}
+
+/* 滑动区域容器 */
+.slider-area {
+  width: 100vw;
+  height: 150rpx; /* 稍微增加高度以容纳双行标签 */
+  margin-bottom: 15rpx;
+}
+
+/* 滑动视图 */
+.slider-view {
+  display: flex;
+  height: 100%;
+}
+
+/* (A) 白色卡片主体 */
+.bill-card {
+  width: 100vw;
+  height: 100%;
+  background-color: #fff;
+  padding: 0 30rpx;
+  display: flex;
+  align-items: center;
+  box-sizing: border-box;
+}
+
+/* 左侧：双标签组 + 日期 */
+.left-part { 
+  width: 180rpx; 
+  display: flex; 
+  flex-direction: column; 
+  justify-content: center;
+}
+
+.cat-tag-group {
+  display: flex;
+  align-items: center;
+  margin-bottom: 10rpx;
+}
+
+.main-cat {
+  font-size: 20rpx;
+  background: #007AFF;
+  color: #fff;
+  padding: 2rpx 10rpx;
+  border-radius: 6rpx 0 0 6rpx;
+}
+
+.sub-cat {
+  font-size: 20rpx;
+  background: #E3F2FD;
+  color: #007AFF;
+  padding: 2rpx 10rpx;
+  border-radius: 0 6rpx 6rpx 0;
+  white-space: nowrap;
+}
+
+.date-text { 
+  font-size: 22rpx; 
+  color: #bbb; 
+}
+
+/* 中间：备注 */
+.mid-part { 
+  flex: 1; 
+  padding: 0 20rpx; 
+  overflow: hidden;
+}
+.desc-text { 
+  font-size: 28rpx; 
+  color: #333; 
+  display: block;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+/* 右侧：金额 */
+.right-part { 
+  width: 160rpx; 
+  text-align: right; 
+}
+.money-text { 
+  font-size: 32rpx; 
+  font-weight: bold; 
+}
+
+.income-text { color: #f53b3b; }
+.expense-text { color: #2ecc71; }
+
+/* (B) 红色删除按钮 */
+.delete-btn {
+  width: 140rpx;
+  height: 100%;
+  background-color: #ff4d4f;
+  color: #fff;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 28rpx;
+  font-weight: bold;
+}
+
+/* 空状态 */
+.empty-state {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding-top: 150rpx;
+  color: #ccc;
+}
+.empty-icon {
+  font-size: 80rpx;
+  margin-bottom: 20rpx;
+}
+
+/* 底部防遮挡 */
+.safe-bottom {
+  width: 100%;
+}

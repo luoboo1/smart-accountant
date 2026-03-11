@@ -1,0 +1,55 @@
+<!-- pages/home/index.wxml -->
+<view class="home-container">
+  <view class="header-area">
+    <text class="app-title">智能记账</text>
+    <text class="app-subtitle">该省省，该花花~</text>
+  </view>
+
+  <!-- 输入区 -->
+  <view class="input-card">
+    <input class="main-input" placeholder="输入： " placeholder-style="color:#ccc" value="{{inputValue}}" bindinput="onInput" />
+    <view class="action-btn" bindtap="commit">记一笔</view>
+  </view>
+
+  <!-- 记账成功后的即时反馈卡片 -->
+  <view class="feedback-card" wx:if="{{tips}}">
+    <view class="feedback-header">
+      <text>🎉 记账成功！</text>
+      <text class="date-tips">{{tips.date}}</text>
+    </view>
+    <view class="feedback-body">
+      <!-- 组合展示大类和小类 -->
+      <view class="tag-group">
+        <text class="tag-main">{{tips.category}}</text>
+        <text class="tag-sub">{{tips.subCategory}}</text>
+      </view>
+      <text class="desc">{{tips.desc}}</text>
+      <text class="money {{tips.type=='收入'?'income':'expense'}}">
+        {{tips.type=='收入'?'+':'-'}}{{tips.displayMoney}}
+      </text>
+    </view>
+  </view>
+
+  <!-- 近期预览 -->
+  <view class="recent-title">近期记录</view>
+  <view class="recent-list">
+    <block wx:for="{{recentRecords}}" wx:key="id">
+      <view class="record-item">
+        <!-- 左侧：分类信息 -->
+        <view class="cat-box">
+          <text class="item-cat">{{item.category}}</text>
+          <text class="item-sub">{{item.subCategory}}</text>
+        </view>
+        <!-- 中间：备注和日期 -->
+        <view class="content-box">
+          <text class="item-desc">{{item.desc}}</text>
+          <text class="item-date">{{item.date}}</text>
+        </view>
+        <!-- 右侧：金额 -->
+        <text class="item-money {{item.type=='收入'?'income':'expense'}}">
+          {{item.money > 0 ? '+' : ''}}{{item.money}}
+        </text>
+      </view>
+    </block>
+  </view>
+</view>

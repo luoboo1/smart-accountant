@@ -1,0 +1,108 @@
+<!-- pages/bill/index.wxml -->
+<view class="bill-page">
+  
+  <!-- 1. 顶部筛选区 (三列) & 统计条 -->
+  <view class="fixed-top-area">
+    <view class="filter-header">
+      <!-- (1) 月份选择 -->
+      <picker mode="date" fields="month" value="{{currentMonth}}" bindchange="onMonthChange">
+        <view class="filter-btn date-btn">
+          <text>{{currentMonth}}</text>
+          <text class="arrow">▼</text>
+        </view>
+      </picker>
+
+      <!-- (2) 具体日期刻度选择 (全部/01-31日) -->
+      <picker mode="selector" range="{{dayOptions}}" value="{{dayIndex}}" bindchange="onDayChange">
+        <view class="filter-btn day-btn">
+          <text>{{dayOptions[dayIndex]}}{{dayIndex == 0 ? '' : '日'}}</text>
+          <text class="arrow">▼</text>
+        </view>
+      </picker>
+
+      <!-- (3) 大类/小类分类选择 -->
+      <picker mode="selector" range="{{categoryOptions}}" value="{{categoryIndex}}" bindchange="onCategoryChange">
+        <view class="filter-btn cat-btn">
+          <text class="limit-text">{{categoryOptions[categoryIndex]}}</text>
+          <text class="arrow">▼</text>
+        </view>
+      </picker>
+    </view>
+
+    <!-- 统计条 -->
+    <view class="stats-bar">
+      <view class="stat-item">
+        <text class="label">收入</text>
+        <text class="val income">+{{totalIncome}}</text>
+      </view>
+      <view class="stat-item">
+        <text class="label">支出</text>
+        <text class="val expense">-{{totalExpense}}</text>
+      </view>
+      <view class="stat-item">
+        <text class="label">结余</text>
+        <text class="val">{{balance}}</text>
+      </view>
+    </view>
+  </view>
+
+  <!-- 2. 账单列表 (带左滑删除) -->
+  <scroll-view scroll-y class="bill-list" style="padding-top: 240rpx;">
+    
+    <block wx:for="{{displayList}}" wx:key="id">
+      <movable-area class="slider-area">
+        <movable-view
+          class="slider-view"
+          direction="horizontal"
+          out-of-bounds="true"
+          damping="100"
+          x="{{item.x}}"
+          data-index="{{index}}"
+          bindchange="handleSlide"
+          bindtouchend="handleTouchEnd"
+          style="width: calc(100vw + 140rpx);"
+        >
+          
+          <!-- (A) 账单详情卡片 -->
+          <view class="bill-card">
+            <!-- 左侧：大小类组合标签 -->
+            <view class="left-part">
+              <view class="cat-tag-group">
+                <text class="main-cat">{{item.category}}</text>
+                <text class="sub-cat">{{item.subCategory}}</text>
+              </view>
+              <text class="date-text">{{item.date}}</text>
+            </view>
+
+            <!-- 中间：备注 -->
+            <view class="mid-part">
+              <text class="desc-text">{{item.desc}}</text>
+            </view>
+
+            <!-- 右侧：金额 -->
+            <view class="right-part">
+              <text class="money-text {{item.type=='收入'?'income-text':'expense-text'}}">
+                {{item.money > 0 ? '+' : ''}}{{item.money}}
+              </text>
+            </view>
+          </view>
+          
+          <!-- (B) 红色删除按钮 -->
+          <view class="delete-btn" catchtap="onDelete" data-id="{{item.id}}">
+            <text>删除</text>
+          </view>
+
+        </movable-view>
+      </movable-area>
+    </block>
+
+    <!-- 空状态提示 -->
+    <view wx:if="{{displayList.length === 0}}" class="empty-state">
+      <view class="empty-icon">📅</view>
+      <text>所选条件下暂无账单数据</text>
+    </view>
+    
+    <view class="safe-bottom" style="height: 60rpx;"></view>
+  </scroll-view>
+
+</view>

@@ -1,0 +1,6 @@
+{
+  "navigationBarTitleText": "欢迎回来！",
+  "usingComponents": {
+    "cloud-tip-modal": "/components/cloudTipModal/index"
+  }
+}

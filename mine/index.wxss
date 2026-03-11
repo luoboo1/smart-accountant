@@ -1,0 +1,118 @@
+/* pages/mine/index.wxss */
+page {
+  background-color: #F8F9FA;
+  --main-blue: #4A80F0;
+  --text-main: #333;
+  --text-gray: #999;
+}
+
+.mine-container {
+  padding: 40rpx;
+}
+
+/* === 头部用户卡片 === */
+.user-card {
+  background-color: #fff;
+  padding: 40rpx;
+  border-radius: 24rpx;
+  display: flex;
+  align-items: center;
+  box-shadow: 0 8rpx 30rpx rgba(74, 128, 240, 0.15); /* 淡淡的蓝色阴影 */
+  margin-bottom: 40rpx;
+}
+
+.avatar {
+  width: 120rpx;
+  height: 120rpx;
+  border-radius: 50%;
+  background-color: #e0eafc; /* 默认底色 */
+  margin-right: 30rpx;
+  flex-shrink: 0;
+}
+
+.user-info {
+  display: flex;
+  flex-direction: column;
+}
+
+.nickname {
+  font-size: 34rpx;
+  font-weight: bold;
+  color: var(--text-main);
+  margin-bottom: 12rpx;
+}
+
+/* 记账天数标签 */
+.days-tag {
+  display: flex;
+  align-items: baseline;
+  font-size: 24rpx;
+  color: var(--text-gray);
+  background: #F0F4FF;
+  padding: 6rpx 20rpx;
+  border-radius: 30rpx;
+  align-self: flex-start;
+}
+.days-num {
+  font-size: 32rpx;
+  font-weight: bold;
+  color: var(--main-blue);
+  margin: 0 6rpx;
+  font-family: Arial, sans-serif;
+}
+
+/* === 功能宫格 === */
+.grid-box {
+  display: flex;
+  flex-wrap: wrap; /* 允许换行 */
+  justify-content: space-between; /* 两端对齐 */
+  margin-bottom: 40rpx;
+}
+
+/* 通用格子样式 */
+.grid-item {
+  width: 48%; /* 一行两个，剩下一个会自动在左下角 */
+  background-color: #fff;
+  border-radius: 20rpx;
+  padding: 40rpx 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 30rpx;
+  box-shadow: 0 4rpx 10rpx rgba(0,0,0,0.02);
+  font-size: 28rpx;
+  color: var(--text-main);
+}
+
+.grid-icon {
+  font-size: 56rpx;
+  margin-bottom: 16rpx;
+}
+
+/* === 底部设置 === */
+.settings-entry {
+  background-color: #fff;
+  padding: 30rpx 40rpx;
+  border-radius: 20rpx;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-size: 28rpx;
+  color: var(--text-main);
+  box-shadow: 0 4rpx 10rpx rgba(0,0,0,0.02);
+}
+.arrow {
+  color: #ccc;
+  font-weight: bold;
+}
+
+/* === 版权信息 === */
+.copyright {
+  text-align: center;
+  margin-top: 60rpx;
+  font-size: 22rpx;
+  color: #ccc;
+  font-weight: 300;
+  letter-spacing: 2rpx;
+}

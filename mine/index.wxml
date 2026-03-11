@@ -1,0 +1,44 @@
+<!-- pages/mine/index.wxml -->
+<view class="mine-container">
+  
+  <!-- 1. 头部卡片：展示用户信息与坚持天数 -->
+  <view class="user-card" bindtap="handleLogin">
+    <!-- 头像：未登录显示灰色，登录显示微信头像 -->
+    <image class="avatar" src="{{userInfo.avatarUrl || '/images/mine.png'}}" mode="aspectFill"></image>
+    
+    <view class="user-info">
+      <!-- 昵称：点击可模拟登录 -->
+      <text class="nickname">{{userInfo.nickName || '点击登录/同步昵称'}}</text>
+      
+      <!-- 动态计算的坚持天数 -->
+      <view class="days-tag">
+        <text>已坚持记账</text>
+        <text class="days-num">{{daysCount}}</text>
+        <text>天</text>
+      </view>
+    </view>
+  </view>
+
+  <!-- 2. 功能宫格：循环渲染剩余的3个功能 -->
+  <view class="grid-box">
+    <block wx:for="{{menuList}}" wx:key="title">
+      <view class="grid-item" bindtap="handleMenuTap" data-type="{{item.type}}">
+        <!-- 依然使用Emoji，不依赖额外图片 -->
+        <view class="grid-icon">{{item.icon}}</view>
+        <text>{{item.title}}</text>
+      </view>
+    </block>
+  </view>
+
+  <!-- 3. 底部设置区域 -->
+  <view class="settings-entry" bindtap="handleClearData">
+    <text>🗑️ 清除缓存 / 重置数据</text>
+    <text class="arrow">></text>
+  </view>
+  
+  <!-- 4. 动态年份版权 -->
+  <view class="copyright">
+    Sariel © {{currentYear}}
+  </view>
+
+</view>

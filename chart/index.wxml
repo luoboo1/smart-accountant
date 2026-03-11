@@ -1,0 +1,82 @@
+<!-- pages/chart/index.wxml -->
+<view class="chart-page">
+
+<!-- 1. 顶部时间筛选 -->
+<view class="header">
+  <text class="title">月度支出分析</text>
+  <picker mode="date" fields="month" value="{{currentMonth}}" bindchange="onMonthChange">
+    <view class="date-picker">
+      <text>{{currentMonth}}</text>
+      <text class="arrow">▼</text>
+    </view>
+  </picker>
+</view>
+
+<!-- 2. 内容区域：有数据才显示 -->
+<block wx:if="{{categoryList.length > 0}}">
+  
+  <!-- (A) 饼图卡片 -->
+  <view class="chart-card">
+    <view class="chart-container">
+      <!-- 动态饼图：style由JS计算 (conic-gradient) -->
+      <view class="pie-chart" style="{{pieStyle}}">
+        <!-- 中间白色遮罩，形成圆环 -->
+        <view class="inner-circle">
+          <text class="label">总支出</text>
+          <text class="amount-big">¥{{totalExpense}}</text>
+        </view>
+      </view>
+    </view>
+
+    <!-- 图例 -->
+    <view class="legend-box">
+      <block wx:for="{{categoryList}}" wx:key="name">
+        <!-- 只显示前4个，防止太挤 -->
+        <view class="legend-item" wx:if="{{index < 4}}">
+          <view class="dot" style="background-color: {{item.color}};"></view>
+          <text class="legend-name">{{item.name}}</text>
+          <text class="legend-percent">{{item.percent}}%</text>
+        </view>
+      </block>
+    </view>
+  </view>
+
+  <!-- (B) 排行榜卡片 -->
+  <view class="rank-card">
+    <view class="card-title">💸 支出排行榜</view>
+    <view class="rank-list">
+      <block wx:for="{{categoryList}}" wx:key="name">
+        <view class="rank-item">
+          <!-- 排名数字图标：前三名加特殊样式 -->
+          <view class="rank-idx {{index < 3 ? 'top3' : ''}}">{{index + 1}}</view>
+          
+          <view class="rank-info">
+            <view class="info-top">
+              <text class="cat-name">{{item.name}}</text>
+              <text class="cat-money">¥{{item.money}}</text>
+            </view>
+            <!-- 进度条：长度相对于最大的那一项 -->
+            <progress 
+              percent="{{(item.value / maxMoney) * 100}}" 
+              stroke-width="6" 
+              border-radius="6"
+              activeColor="{{item.color}}"
+              backgroundColor="#f0f0f0"
+            />
+          </view>
+        </view>
+      </block>
+    </view>
+  </view>
+
+</block>
+
+<!-- 3. 空状态：无数据时显示 -->
+<block wx:else>
+  <view class="empty-state">
+    <text class="empty-icon">📊</text>
+    <text class="empty-text">📅 {{currentMonth}} 暂无支出记录</text>
+  </view>
+</block>
+
+</view>

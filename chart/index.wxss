@@ -1,0 +1,204 @@
+/* pages/chart/index.wxss */
+page {
+  background-color: #F6F7F9;
+  padding-bottom: 60rpx;
+  color: #333;
+}
+
+/* === 1. 顶部吸顶筛选栏 === */
+.header {
+  background-color: #fff;
+  padding: 30rpx 40rpx;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  position: sticky;
+  top: 0;
+  z-index: 99;
+  box-shadow: 0 4rpx 15rpx rgba(0,0,0,0.05);
+}
+
+.title { 
+  font-size: 34rpx; 
+  font-weight: bold; 
+}
+
+.date-picker {
+  background-color: #F0F2F5;
+  padding: 12rpx 28rpx;
+  border-radius: 40rpx;
+  font-size: 26rpx;
+  display: flex;
+  align-items: center;
+  transition: opacity 0.2s;
+}
+
+.date-picker:active {
+  opacity: 0.7; /* 点击效果 */
+}
+
+.arrow { 
+  font-size: 18rpx; 
+  margin-left: 10rpx; 
+  color: #999; 
+}
+
+/* === 2. 通用卡片容器 === */
+.chart-card, .rank-card {
+  margin: 30rpx;
+  background-color: #fff;
+  border-radius: 24rpx;
+  padding: 40rpx;
+  box-shadow: 0 4rpx 20rpx rgba(0,0,0,0.03);
+}
+
+/* === 3. 饼图区域 === */
+.chart-container {
+  display: flex;
+  justify-content: center;
+  margin-bottom: 40rpx;
+}
+
+.pie-chart {
+  width: 320rpx;
+  height: 320rpx;
+  border-radius: 50%;
+  position: relative;
+  /* background 由 JS 计算 conic-gradient */
+}
+
+/* 中间白圈形成“圆环图”效果 */
+.inner-circle {
+  position: absolute;
+  top: 50%; left: 50%;
+  transform: translate(-50%, -50%);
+  width: 220rpx;
+  height: 220rpx;
+  background-color: #fff;
+  border-radius: 50%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  box-shadow: inset 0 0 10rpx rgba(0,0,0,0.02);
+}
+
+.label { 
+  font-size: 22rpx; 
+  color: #999; 
+  margin-bottom: 8rpx; 
+}
+
+.amount-big { 
+  font-size: 36rpx; 
+  font-weight: bold; 
+}
+
+/* 图例系统 (四宫格分布) */
+.legend-box {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: flex-start;
+  margin-top: 20rpx;
+}
+
+.legend-item { 
+  display: flex; 
+  align-items: center; 
+  font-size: 24rpx; 
+  color: #666; 
+  width: 50%; /* 一行两个 */
+  margin-bottom: 16rpx;
+}
+
+.dot { 
+  width: 14rpx; 
+  height: 14rpx; 
+  border-radius: 50%; 
+  margin-right: 12rpx; 
+}
+
+.legend-name { 
+  flex: 1; 
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.legend-percent {
+  color: #999;
+  margin-left: 10rpx;
+}
+
+/* === 4. 排行榜区域 === */
+.card-title { 
+  font-size: 30rpx; 
+  font-weight: bold; 
+  margin-bottom: 36rpx; 
+}
+
+.rank-item { 
+  display: flex; 
+  align-items: flex-start; 
+  margin-bottom: 30rpx; 
+}
+
+/* 排名数字样式 */
+.rank-idx {
+  width: 44rpx; 
+  height: 44rpx;
+  line-height: 44rpx; 
+  text-align: center;
+  border-radius: 12rpx;
+  background-color: #F0F2F5; 
+  color: #999;
+  font-size: 24rpx; 
+  font-weight: bold;
+  margin-right: 24rpx;
+  margin-top: 4rpx;
+}
+
+/* 前三名特殊配色 */
+.rank-item:nth-child(1) .rank-idx { background-color: #FFD700; color: #fff; } /* 金 */
+.rank-item:nth-child(2) .rank-idx { background-color: #C0C0C0; color: #fff; } /* 银 */
+.rank-item:nth-child(3) .rank-idx { background-color: #E09F72; color: #fff; } /* 铜 */
+
+.rank-info { 
+  flex: 1; 
+}
+
+.info-top { 
+  display: flex; 
+  justify-content: space-between; 
+  margin-bottom: 12rpx; 
+  font-size: 28rpx; 
+}
+
+.cat-name { color: #333; }
+.cat-money { font-weight: bold; }
+
+/* 减小进度条组件周边的间距感 */
+progress {
+  border-radius: 10rpx;
+  overflow: hidden;
+}
+
+/* === 5. 空状态区域 === */
+.empty-state {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding-top: 200rpx;
+}
+
+.empty-icon { 
+  font-size: 100rpx; 
+  margin-bottom: 30rpx; 
+  filter: grayscale(0.5);
+}
+
+.empty-text { 
+  color: #999; 
+  font-size: 30rpx; 
+  margin-bottom: 60rpx; 
+}
