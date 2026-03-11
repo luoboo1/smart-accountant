@@ -1,0 +1,48 @@
+{
+  "pages": [
+    "pages/index/index",
+    "pages/bill/index",
+    "pages/chart/index",
+    "pages/mine/index"
+  ],
+  "window": {
+    "backgroundTextStyle": "light",
+    "navigationBarBackgroundColor": "#ffffff",
+    "navigationBarTitleText": "智能记账",
+    "navigationBarTextStyle": "black"
+  },
+  "tabBar": {
+    "color": "#999999",
+    "selectedColor": "#4A80F0",
+    "backgroundColor": "#ffffff",
+    "borderStyle": "white",
+    "list": [
+      {
+        "pagePath": "pages/index/index",
+        "text": "记录",
+        "iconPath": "images/record.png",
+        "selectedIconPath": "images/record_active.png"
+      },
+      {
+        "pagePath": "pages/bill/index",
+        "text": "账单",
+        "iconPath": "images/bill.png",
+        "selectedIconPath": "images/bill_active.png"
+      },
+      {
+        "pagePath": "pages/chart/index",
+        "text": "图表",
+        "iconPath": "images/chart.png",
+        "selectedIconPath": "images/chart_active.png"
+      },
+      {
+        "pagePath": "pages/mine/index",
+        "text": "我的",
+        "iconPath": "images/mine.png",
+        "selectedIconPath": "images/mine_active.png"
+      }
+    ]
+  },
+  "style": "v2",
+  "sitemapLocation": "sitemap.json"
+}

@@ -1,0 +1,33 @@
+/* app.wxss */
+page {
+  /* 定义你的色彩变量 */
+  --main-blue: #4A80F0;
+  --sub-orange: #FF9558;
+  --text-dark: #333333;
+  --text-gray: #666666;
+  --text-light: #999999;
+  --bg-color: #F8F9FA;
+  
+  background-color: #FFFFFF;
+  font-family: -apple-system, BlinkMacSystemFont, 'Helvetica Neue', Helvetica, Segoe UI, Arial, Roboto, 'PingFang SC', 'miui', 'Hiragino Sans GB', 'Microsoft Yahei', sans-serif;
+  box-sizing: border-box;
+}
+
+.container {
+  padding: 0 30rpx;
+}
+
+/* 通用按钮样式 */
+.btn-primary {
+  background-color: var(--main-blue);
+  color: #fff;
+  border-radius: 44rpx; /* 大圆角 */
+  font-weight: bold;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: opacity 0.2s;
+}
+.btn-primary:active {
+  opacity: 0.9;
+}
